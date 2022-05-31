@@ -5,7 +5,7 @@
   "description": "[![Actions Status](https://github.com/Dastorin/backend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Dastorin/backend-project-lvl2/actions)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx jest"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Dastorin/backend-project-lvl2#readme",
   "dependencies": {
+    "@jest/globals": "^28.1.0",
     "commander": "^9.2.0",
     "lodash": "^4.17.21"
   },
