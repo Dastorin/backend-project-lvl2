@@ -16,7 +16,7 @@ const parser = (filepath) => {
   if (format === '.json') {
     parse = JSON.parse;
   } else if (format === '.yml' || format === '.yaml') {
-    parse = yaml.safeLoad;
+    parse = yaml.load;
   }
   return parse(data);
 };
