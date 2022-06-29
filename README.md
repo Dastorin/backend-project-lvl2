@@ -3,3 +3,5 @@
 
 ## Пример
 [![asciicast](https://asciinema.org/a/CrIUqKraLAw7PFf6ADYjoLlHL.svg)](https://asciinema.org/a/CrIUqKraLAw7PFf6ADYjoLlHL)
+
+[![asciicast](https://asciinema.org/a/vRuGkL7G8LnrVnV8bJLVQXFju.svg)](https://asciinema.org/a/vRuGkL7G8LnrVnV8bJLVQXFju)
