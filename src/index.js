@@ -5,14 +5,27 @@
 /* eslint-disable no-console */
 
 import _ from 'lodash';
-import * as fs from 'node:fs';
+import fs from 'fs';
+import yaml from 'js-yaml';
+import path from 'path';
 
-const parse = (filepath) => JSON.parse(fs.readFileSync(filepath));
+const parser = (filepath) => {
+  const format = path.extname(filepath);
+  const data = fs.readFileSync(filepath);
+  let parse;
+  if (format === '.json') {
+    parse = JSON.parse;
+  } else if (format === '.yml' || format === '.yaml') {
+    parse = yaml.load;
+  }
+  return parse(data);
+};
+
 const isKey = (obj, key) => _.keys(obj).indexOf(key) !== -1;
 
 const genDiff = (filepath1, filepath2) => {
-  const file1 = parse(filepath1);
-  const file2 = parse(filepath2);
+  const file1 = parser(filepath1);
+  const file2 = parser(filepath2);
   const result = _.uniq([..._.keys(file1), ..._.keys(file2)])
     .sort()
     .map((key) => {
