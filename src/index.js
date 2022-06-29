@@ -1,25 +1,12 @@
 #!/usr/bin/env node
+/* eslint-disable import/extensions */
 /* eslint-disable consistent-return */
 /* eslint-disable array-callback-return */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable no-console */
 
 import _ from 'lodash';
-import fs from 'fs';
-import yaml from 'js-yaml';
-import path from 'path';
-
-const parser = (filepath) => {
-  const format = path.extname(filepath);
-  const data = fs.readFileSync(filepath);
-  let parse;
-  if (format === '.json') {
-    parse = JSON.parse;
-  } else if (format === '.yml' || format === '.yaml') {
-    parse = yaml.load;
-  }
-  return parse(data);
-};
+import parser from './parses.js';
 
 const isKey = (obj, key) => _.keys(obj).indexOf(key) !== -1;
 
