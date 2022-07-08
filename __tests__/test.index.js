@@ -1,6 +1,3 @@
-/* eslint-disable import/extensions */
-/* eslint-disable no-undef */
-/* eslint-disable no-underscore-dangle */
 import * as fs from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname } from 'path';
