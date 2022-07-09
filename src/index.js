@@ -15,23 +15,24 @@ const genDiff = (filepath1, filepath2) => {
 
     const result = _.uniq([..._.keys(obj1), ..._.keys(obj2)])
       .sort()
-      .map((key) => {
+      .reduce((acc, key) => {
           if (isKey(obj1, key) && isKey(obj2, key)) {
             if (isTwoObjects(obj1[key], obj2[key])) {
-              return {key: key, type: '2', value: iter(obj1[key], obj2[key])};
+              acc = {...acc, key: key, type: '2', value: iter(obj1[key], obj2[key])};
+            } else {          
+            acc = obj1[key] === obj2[key]
+              ? {...acc, key: key, type: '=', value: obj1[key]}
+              : {...acc, key:key, type: '!=', value: [obj1[key], obj2[key]]};
             }
+          } else if (isKey(obj1, key)){
+            acc = {...acc, key: key, type: 'first', value: obj1[key]};
           
-            return obj1[key] === obj2[key]
-              ? {key: key, type: '=', value: obj1[key]}
-              : {key:key, type: '!=', value: [obj1[key], obj2[key]]};
+          }else if (isKey(obj2, key)) {
+            acc = {...acc, key: key, type: 'second', value: obj2[key]};
           }
-          if (isKey(obj1, key)){
-            return {key: key, type: 'first', value: obj1[key]};
-          }
-          if (isKey(obj2, key)) {
-            return {key: key, type: 'second', value: obj2[key]};
-          }
-      });
+          
+          return acc;
+      }, {});
     return formater(result);
   };
   return iter(file1, file2);
