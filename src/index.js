@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/no-named-as-default */
 import parser from './parses.js';
-import formater from './stylishjs.js';
+import formater from './stylish.js';
 import getComparison from './comparison.js';
 
 const genDiff = (filepath1, filepath2) => {
