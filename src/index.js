@@ -1,34 +1,21 @@
-#!/usr/bin/env node
-/* eslint-disable import/extensions */
-/* eslint-disable consistent-return */
-/* eslint-disable array-callback-return */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable no-console */
-
-import _ from 'lodash';
+/* eslint-disable import/no-named-as-default-member */
+/* eslint-disable import/no-named-as-default */
 import parser from './parses.js';
+import getComparison from './comparison.js';
+import stylish from './stylish.js';
+import plain from './plain.js';
 
-const isKey = (obj, key) => _.keys(obj).indexOf(key) !== -1;
-
-const genDiff = (filepath1, filepath2) => {
+const genDiff = (filepath1, filepath2, type) => {
   const file1 = parser(filepath1);
   const file2 = parser(filepath2);
-  const result = _.uniq([..._.keys(file1), ..._.keys(file2)])
-    .sort()
-    .map((key) => {
-      if (isKey(file1, key) && isKey(file2, key)) {
-        return file1[key] === file2[key]
-          ? `    ${key}: ${file1[key]}\n`
-          : `  - ${key}: ${file1[key]}\n  + ${key}: ${file2[key]}\n`;
-      }
-      if (isKey(file1, key) && !isKey(file2, key)) {
-        return `  - ${key}: ${file1[key]}\n`;
-      }
-      if (!isKey(file1, key) && isKey(file2, key)) {
-        return `  + ${key}: ${file2[key]}\n`;
-      }
-    });
-  return (`{\n${result.join('')}}`);
+  switch (type) {
+    case 'stylish':
+      return stylish(getComparison(file1, file2));
+    case 'plain':
+      return plain(getComparison(file1, file2));
+    default:
+      return console.log('unknown formatrea type');
+  }
 };
 
 export default genDiff;
