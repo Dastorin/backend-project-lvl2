@@ -3,6 +3,7 @@
 import parser from './parses.js';
 import getComparison from './comparison.js';
 import stylish from './stylish.js';
+import plain from './plain.js';
 
 const genDiff = (filepath1, filepath2, type) => {
   const file1 = parser(filepath1);
@@ -10,6 +11,8 @@ const genDiff = (filepath1, filepath2, type) => {
   switch (type) {
     case 'stylish':
       return stylish(getComparison(file1, file2));
+    case 'plain':
+      return plain(getComparison(file1, file2));
     default:
       return console.log('unknown formatrea type');
   }

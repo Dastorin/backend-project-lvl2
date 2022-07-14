@@ -4,7 +4,7 @@ const getSufix = (string, sufix) => {
   return result.join('');
 };
 
-const stylish = (date, replacer = '    ', spacesCount = 1) => {
+export default (date, replacer = '    ', spacesCount = 1) => {
   const iter = (currentValue, depth) => {
     const indentSize = depth * spacesCount;
     const currentIndent = replacer.repeat(indentSize);
@@ -42,5 +42,3 @@ const stylish = (date, replacer = '    ', spacesCount = 1) => {
   };
   return iter(date, 1);
 };
-
-export default stylish;
