@@ -1,15 +1,26 @@
+# https://github.com/jest-community/eslint-plugin-jest
+plugins:
+  - jest
+  - fp
 env:
   node: true
-  es2021: true
+  jest: true
+  es2020: true
 extends:
   - airbnb-base
+  - "plugin:jest/recommended"
+  - "plugin:fp/recommended"
 parserOptions:
-  ecmaVersion: 13
-  sourceType: module
-rules: 
+  ecmaVersion: 2020
+
+rules:
   no-console: 0
-  import/extensions: # FIXME: remove when rule will be adjusted for new nodejs version
-    - error
-    - ignorePackages
-    - js: always
+  import/extensions: 0 # TODO: remove when rule will be adjusted for new nodejs version (issue link?)
   no-underscore-dangle: [2, { "allow": ["__filename", "__dirname"] }]
+  fp/no-nil: 0
+  fp/no-unused-expression: 0
+  fp/no-throw: 0
+  fp/no-mutating-methods:
+    - error
+    - allowedObjects:
+      - "_"
