@@ -1,7 +1,9 @@
 const getSufix = (string, sufix) => {
-  const result = string.split('');
-  result[string.length - 2] = sufix;
-  return result.join('');
+  const indexSufix = string.length - 2;
+  return string
+    .split('')
+    .map((el, index) => (index === indexSufix ? sufix : el))
+    .join('');
 };
 
 export default (date, replacer = '    ', spacesCount = 1) => {
