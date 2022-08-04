@@ -30,7 +30,7 @@ export default (date) => {
             return `Property '${[...path, node.key].join('.')}' was updated. From [complex value] to ${getQuotes(node.value[1])}`;
 
           case 'value1!==value2, valu2-obj': // update to [coplex value]
-            return `Property '${[...path, node.key].join('.')}' was updated. From ${getQuotes(node.value[0])}  to [complex value]`;
+            return `Property '${[...path, node.key].join('.')}' was updated. From ${getQuotes(node.value[0])} to [complex value]`;
 
           default:
             return 'error type unknown';
