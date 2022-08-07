@@ -11,6 +11,6 @@ export default (data, formatName) => {
     case 'json':
       return json(data);
     default:
-      return console.log('erorr unknown formatrea type');
+      return console.log(`erorr unknown formatrea type ${formatName}`);
   }
 };
