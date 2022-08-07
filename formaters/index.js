@@ -4,13 +4,11 @@ import json from './json.js';
 
 export default (data, formatName) => {
   switch (formatName) {
-    case 'stylish':
-      return stylish(data);
     case 'plain':
       return plain(data);
     case 'json':
       return json(data);
     default:
-      return console.log(`erorr unknown formatrea type ${formatName}`);
+      return stylish(data);
   }
 };
