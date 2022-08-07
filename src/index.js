@@ -1,8 +1,6 @@
-/* eslint-disable import/no-named-as-default-member */
-/* eslint-disable import/no-named-as-default */
 import parser from './parses.js';
 import getComparison from './comparison.js';
-import formater from '../formaters/index.js';
+import formater from './formaters/index.js';
 
 export default (filepath1, filepath2, type) => {
   const file1 = parser(filepath1);
