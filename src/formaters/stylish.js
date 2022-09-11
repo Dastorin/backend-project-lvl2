@@ -1,46 +1,37 @@
-const getSufix = (string, sufix) => {
-  const indexSufix = string.length - 2;
-  return string
-    .split('')
-    .map((el, index) => (index === indexSufix ? sufix : el))
-    .join('');
-};
+const getString = (value, perfix) => {
+  const symbol = {
+    'added': '+',
+    'deleted': '-',
+    'uncharged': ' ',
+    'nested': ' ',
+    'charged': ['-', '+'],
+  }
+  если value не объект - сформировать строку
 
-export default (date, replacer = '    ', spacesCount = 1) => {
-  const iter = (currentValue, depth) => {
-    const indentSize = depth * spacesCount;
-    const currentIndent = replacer.repeat(indentSize);
-    const bracketIndent = replacer.repeat(indentSize - spacesCount);
-    const lines = currentValue
-      .map((node) => {
-        switch (node.type) {
-          case 'value1 === value2':
-            return `${currentIndent}${node.key}: ${node.value}`;
-          case 'value1 !== value2':
-            return `${getSufix(currentIndent, '-')}${node.key}: ${node.value[0]}\n${getSufix(currentIndent, '+')}${node.key}: ${node.value[1]}`;
-          case 'value1 & value2-obj':
-            return `${currentIndent}${node.key}: ${iter(node.value, depth + 1)}`;
-          case 'key1 value1-obj':
-            return `${getSufix(currentIndent, '-')}${node.key}: ${iter(node.value, depth + 1)}`;
-          case 'key1':
-            return `${getSufix(currentIndent, '-')}${node.key}: ${node.value}`;
-          case 'key2 value2-obj':
-            return `${getSufix(currentIndent, '+')}${node.key}: ${iter(node.value, depth + 1)}`;
-          case 'key2':
-            return `${getSufix(currentIndent, '+')}${node.key}: ${node.value}`;
-          case 'value1!==value2 value1-obj':
-            return `${getSufix(currentIndent, '-')}${node.key}: ${iter(node.value[0], depth + 1)}\n${getSufix(currentIndent, '+')}${node.key}: ${node.value[1]}`;
-          case 'value1!==value2, valu2-obj':
-            return `${getSufix(currentIndent, '-')}${node.key}: ${node.value[0]}\n${getSufix(currentIndent, '+')}${node.key}: ${iter(node.value[1], depth + 1)}`;
-          default:
-            return 'error type unknown';
-        }
-      });
-    return [
-      '{',
-      ...lines,
-      `${bracketIndent}}`,
-    ].join('\n');
-  };
-  return iter(date, 1);
-};
+  иначе рекурсивно обойти превратив в строку и назначить все отступы.
+}
+
+const getOldValue = (node) => (node.meta.oldValue);
+
+export default (data) => {
+  const iter = (obj) => {
+    const result = obj.map((node) => {
+      switch (node.type) {
+        case 'added':
+          return `+ ${node.key}: ${getString(node.value, node.type)}/n`;
+        case 'deleted':
+          return `- ${node.key}: ${getString(node.value, node.type)}/n`;
+        case 'uncharged':
+          return `  ${node.key}: ${getString(node.value, node.type)}/n`;
+        case 'charged':
+          return`- ${key}: ${getString(node.value)}/n + ${key}: ${getString(getOldValue(node))}`;
+        case 'nested':
+          return `  ${key}: ${iter(node.children)}`;
+
+        default: console.error(new Error(`unknown type ${value.type}!`));
+      }
+    });
+    return result;
+  }
+  return inter(data, 1);
+}
