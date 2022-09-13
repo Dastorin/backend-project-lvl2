@@ -6,7 +6,7 @@ function isTwoObjects(value1, value2) {
 }
 
 const getComparison = (obj1, obj2) => {
-  const keys = _.union([_.keys(obj1), _.keys(obj2)]);
+  const keys = _.union(_.keys(obj1), _.keys(obj2));
   const sortedKeys = _.sortBy(keys);
   const result = sortedKeys.map((key) => {
     const value1 = obj1[key];
