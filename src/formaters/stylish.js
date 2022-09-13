@@ -1,19 +1,18 @@
-import _ from "lodash"
+import _ from 'lodash';
 
 const getPerfix = (node, countSpace = 1, replacer = '    ') => {
-  
   const symbol = {
-    'added': ['+'],
-    'deleted': ['-'],
-    'unchanged': [' '],
-    'changed': ['-', '+'],
-    'nested': [' '],
+    added: ['+'],
+    deleted: ['-'],
+    unchanged: [' '],
+    changed: ['-', '+'],
+    nested: [' '],
   };
   return symbol[node.type].map((el) => `${replacer.repeat(countSpace).substring(2)}${el} `);
 };
 
 const getString = (value, spaceCount, replacer = '    ') => {
-  const iter = (currentValue, depth) => {  
+  const iter = (currentValue, depth) => {
     if (!_.isObject(currentValue)) {
       return `${currentValue}`;
     }
@@ -24,11 +23,12 @@ const getString = (value, spaceCount, replacer = '    ') => {
       .entries(currentValue)
       .map(([key, val]) => `${currentIndent}${key}: ${iter(val, depth + 1)}`);
     return [
-     '{',
-     ...lines,
-     `${bracketIndent}}`,
+      '{',
+      ...lines,
+      `${bracketIndent}}`,
     ].join('\n');
   };
+
   return iter(value, 1);
 };
 
@@ -49,15 +49,14 @@ export default (data) => {
           return `${getPerfix(node, depth)[0]}${node.key}: ${getString(getOldValue(node), depth)}\n${getPerfix(node, depth)[1]}${node.key}: ${getString(node.value2, depth)}`;
         case 'nested':
           return `${getPerfix(node, depth)}${node.key}: ${iter(node.children, depth + 1)}`;
-
-        default: console.error(new Error(`unknown type ${node.type}!`));
+        default: return console.error(new Error(`unknown type ${node.type}!`));
       }
     });
     return [
       '{',
       ...result,
-      `${space}}`
+      `${space}}`,
     ].join('\n');
-  }
+  };
   return iter(data, 1);
-}
+};

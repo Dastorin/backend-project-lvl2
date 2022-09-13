@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const getQuotes = (value) => {
   if (_.isObject(value)) {
