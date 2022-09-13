@@ -5,20 +5,14 @@ import path from 'path';
 export default (filepath) => {
   const format = path.extname(filepath);
   const data = fs.readFileSync(filepath);
-  let parse;
   switch (format) {
     case '.json':
-      parse = JSON.parse;
-      break;
+      return JSON.parse(data);
     case '.yml':
-      parse = yaml.load;
-      break;
+      return yaml.load(data);
     case '.yaml':
-      parse = yaml.load;
-      break;
+      return yaml.load(data);
     default:
-      console.error(new Error(`unknown format ${data}!`));
-      break;
+      return console.error(new Error(`unknown format ${data}!`));
   }
-  return parse(data);
 };
