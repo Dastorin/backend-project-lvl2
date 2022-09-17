@@ -9,6 +9,6 @@ export default (data, type) => {
     case 'yaml':
       return yaml.load(data);
     default:
-      return console.error(new Error(`unknown format ${data}!`));
+      return console.error(new Error(`Unknown type ${data}!`));
   }
 };
