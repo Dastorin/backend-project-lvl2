@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import parser from './parses.js';
+import parser from './parsers.js';
 import getComparison from './comparison.js';
 import formater from './formaters/index.js';
 
