@@ -11,6 +11,6 @@ export default (data, formatName = 'stylish') => {
     case 'stylish':
       return stylish(data);
     default:
-      return console.error(new Error(`Unknown format ${formatName}`));
+      throw new Error(`Unknown format ${formatName}`);
   }
 };
